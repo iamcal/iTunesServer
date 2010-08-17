@@ -1,0 +1,6 @@
+
+<FilesMatch "^zoom-spin-">
+	Header set cache-control: public
+	ExpiresActive on
+	ExpiresDefault "access plus 1 month"
+</FilesMatch>

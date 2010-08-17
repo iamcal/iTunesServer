@@ -1,0 +1,6 @@
+grab the track list (slow!):
+	cd /locker/music && find . > /www/music.randomfoo.net/htdocs/cal/feed/list.txt
+
+insert into DB (wipe it first):
+	php -q slurp.php | mysql -ucal -pcal
+

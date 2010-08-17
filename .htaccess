@@ -1,0 +1,4 @@
+#AuthType Basic
+#AuthName "GO AWAY"
+#AuthUserFile /home/lhl/www/music.randomfoo.net/auth
+#Require valid-user
