@@ -14,6 +14,7 @@ var g_song_name = '';
 
 var g_dragging = false;
 var g_dragging_target = null;
+var g_inflight = 0;
 
 function ge(x){
 	return document.getElementById(x);
@@ -32,7 +33,8 @@ function ajaxify(url, args, handler){
 
 	args['_auth'] = g_auth;
 
-	startProgress();
+	g_inflight++;
+	if (g_inflight == 1) startProgress();
 
 	var req = new XMLHttpRequest();
 	req.onreadystatechange = function(){
@@ -54,7 +56,8 @@ function ajaxify(url, args, handler){
 				});
 			}
 
-			stopProgress();
+			g_inflight--;
+			if (g_inflight == 0) stopProgress();
 		}
 	}
 
@@ -336,7 +339,7 @@ function loadMore(){
 
 	if (g_loaded < g_total){
 
-		ge('loadmore').innerHTML = '<div>Loading...</div>';
+		ge('loadmore').innerHTML = '<td colspan="6"><div>Loading...</div></td>';
 
 		getTracks(g_loaded);
 	}
