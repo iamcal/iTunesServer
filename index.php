@@ -117,9 +117,7 @@
 </div>
 </div>
 
-<div class="contextmenu" id="trackcontext">
-	<a href="#" onclick="editTrack(g_context_track); reset_menus(); return false;">Edit Info</a>
-</div>
+<div id="contextmenu"></div>
 
 <div id="dragbox"></div>
 

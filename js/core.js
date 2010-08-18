@@ -918,17 +918,37 @@ function doneEditTrack(){
 	});
 }
 
-function reset_menus(){
-	$('.contextmenu').hide();
+
+function reset_menu(){
+	$('#contextmenu').hide();
 }
 
-function open_menu(id, p){
-	reset_menus();
+function open_menu(options, p){
 
-	$(id).css({
+	var m = $('#contextmenu');
+
+	m.empty();
+
+	for (var i=0; i<options.length; i++){
+		var action = options[i][1];
+		$(document.createElement('a')).html(options[i][0]).click(function(clickEvent){
+			clickEvent.stopPropagation();
+			$(document.body).unbind('click.menu');
+			reset_menu();
+			action(clickEvent.currentTarget);
+			return false;
+		}).attr('href','#').appendTo(m);
+	}
+
+	m.css({
 		'left' : p[0]+'px',
 		'top' : p[1]+'px',
-	}).show();
+	});
+	m.show();
+
+	$(document.body).bind('click.menu', function(){
+		reset_menu();
+	});
 }
 
 var g_context_track = null;
@@ -941,11 +961,8 @@ function trackContext(e, id){
 
 	var p = clientToGlobal(eventPoint(e), ge('track'+id));
 
-	open_menu('#trackcontext', p);
+	open_menu([
+		['Edit Info', function(){ editTrack(g_context_track); }]
+	], p);
 }
 
-$(document).ready(function(){
-	$(document.body).mousedown(function(){
-		//reset_menus();
-	});
-});

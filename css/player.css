@@ -427,13 +427,13 @@ table#playlist tr#loadmore td div {
 }
 
 
-.contextmenu {
+#contextmenu {
 	display: none;
 	position: absolute;
 	border: 1px solid black;
 }
 
-.contextmenu a {
+#contextmenu a {
 	display: block;
 	width: 150px;
 	background-color: #fff;
