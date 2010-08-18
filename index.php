@@ -1,12 +1,10 @@
 <?
+	include('include/init.php');
+
 	header('Content-type: text/html; charset=UTF-8');
 
-	$_SERVER[REMOTE_USER] = 'cal';
-
-	if (!$_SERVER[REMOTE_USER]){
-		die("Sorry, need to be signed in...");
-	}
-
+	$user = 'cal';
+	$auth = auth_create_token($user);
 ?>
 <html>
 <head>
@@ -20,7 +18,7 @@
 	<script type="text/javascript" src="sm2/flashblock.js"></script>
 	<script type="text/javascript" src="js/jquery-1.4.2.min.js"></script>
 	<script type="text/javascript" src="js/core.js?<?=time()?>"></script>
-	<script type="text/javascript"> var g_user = '<?=$_SERVER[REMOTE_USER]?>'; </script>
+	<script type="text/javascript"> var g_user = '<?=$user?>'; var g_auth = '<?=$auth?>'; </script>
 
 </head>
 <body>

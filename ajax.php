@@ -1,6 +1,8 @@
 <?
 	include('include/init.php');
 
+	$_GLOBALS[authed_user] = auth_check_token($_REQUEST['_auth']);
+
 
 	#
 	# returns (a portion of) a playlist
@@ -86,7 +88,7 @@
 	if ($_REQUEST[q] == 'rename_playlist'){
 
 		$name = AddSlashes($_REQUEST[name]);
-		$user = AddSlashes($_SERVER[REMOTE_USER]);
+		$user = AddSlashes($_GLOBALS[authed_user]);
 		$id = intval($_REQUEST[id]);
 
 		db_query("UPDATE playlists SET name='$name' WHERE id=$id AND user='$user'");
@@ -101,7 +103,7 @@
 		$tracks = explode(',', $_REQUEST[tracks]);
 
 		$playlist = intval($_REQUEST[id]);
-		$user = AddSlashes($_SERVER[REMOTE_USER]);
+		$user = AddSlashes($_GLOBALS[authed_user]);
 
 		$list = db_fetch_one("SELECT * FROM playlists WHERE id=$playlist AND user='$user'");
 		if (!$list[id]){
@@ -134,7 +136,7 @@
 		$tracks = explode(',', $_REQUEST[tracks]);
 
 		$playlist = intval($_REQUEST[id]);
-		$user = AddSlashes($_SERVER[REMOTE_USER]);
+		$user = AddSlashes($_GLOBALS[authed_user]);
 
 		$list = db_fetch_one("SELECT * FROM playlists WHERE id=$playlist AND user='$user'");
 		if (!$list[id]){

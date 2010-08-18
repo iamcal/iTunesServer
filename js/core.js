@@ -30,6 +30,8 @@ function playingHTML(){
 
 function ajaxify(url, args, handler){
 
+	args['_auth'] = g_auth;
+
 	startProgress();
 
 	var req = new XMLHttpRequest();
