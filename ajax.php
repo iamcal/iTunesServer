@@ -168,6 +168,7 @@
 			#'year'		=> AddSlashes($_REQUEST[y]),
 			'num'		=> AddSlashes($_REQUEST[n]),
 			'track'		=> AddSlashes($_REQUEST[t]),
+			'updated'	=> 1, # marks pending changes that need to be pushed back to ID3
 		), "id=".intval($_REQUEST[id]));
 
 

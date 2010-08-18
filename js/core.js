@@ -360,7 +360,9 @@ function buildPlaylistHTML(o){
 		html += "<tr id=\"track"+id+"\" class=\""+class+"\"";
 		html += " onclick=\"select('"+id+"', event); return false\"";
 		html += " ondblclick=\"playback('"+id+"'); return false\"";
-		html += " onmousedown=\"startTrackDrag(event, '"+id+"'); return false\" onselectstart=\"return false\">\n";
+		html += " onmousedown=\"startTrackDrag(event, '"+id+"'); return false\"";
+		html += " oncontextmenu=\"trackContext(event, '"+id+"'); return false\"";
+		html += " onselectstart=\"return false\">\n";
 
 		if (id == playing_id){
 			html += "<td id=\"playing"+id+"\">"+playingHTML()+"</td>\n";
@@ -879,12 +881,12 @@ var g_editing_track = null;
 
 function editTrack(id){
 
-	var info = g_tracks['t'+id];
+	var info = g_tracks[id];
 	if (!info.t){
 		return;
 	}
 
-	g_editing_track = id;
+	g_editing_track = g_tracks[id].id;
 
 	$('#edit-track').val(info.t);
 	$('#edit-artist').val(info.ar);
@@ -920,8 +922,30 @@ function reset_menus(){
 	$('.contextmenu').hide();
 }
 
-function open_menu(id){
+function open_menu(id, p){
 	reset_menus();
-	// TODO: position it
-	$(id).show();
+
+	$(id).css({
+		'left' : p[0]+'px',
+		'top' : p[1]+'px',
+	}).show();
 }
+
+var g_context_track = null;
+
+function trackContext(e, id){
+
+	g_context_track = id;
+
+	select(id, e);
+
+	var p = clientToGlobal(eventPoint(e), ge('track'+id));
+
+	open_menu('#trackcontext', p);
+}
+
+$(document).ready(function(){
+	$(document.body).mousedown(function(){
+		//reset_menus();
+	});
+});

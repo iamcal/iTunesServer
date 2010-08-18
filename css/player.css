@@ -437,4 +437,7 @@ table#playlist tr#loadmore td div {
 	display: block;
 	width: 150px;
 	background-color: #fff;
+	padding: 4px;
+	font-size: 13px;
+	font-family: Helvetica, Arial, sans-serif;
 }
