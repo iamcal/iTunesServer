@@ -158,6 +158,26 @@
 	}
 
 
+
+	if ($_REQUEST[q] == 'update_track'){
+
+
+		db_update("tracks", array(
+			'artist'	=> AddSlashes($_REQUEST[ar]),
+			'album'		=> AddSlashes($_REQUEST[al]),
+			#'year'		=> AddSlashes($_REQUEST[y]),
+			'num'		=> AddSlashes($_REQUEST[n]),
+			'track'		=> AddSlashes($_REQUEST[t]),
+		), "id=".intval($_REQUEST[id]));
+
+
+		exit_with_json(array(
+			'ok'	=> 1,
+		));
+	}
+
+
+
 	exit_with_json(array(
 		'ok' => 0,
 		'error' => 'no backend',
