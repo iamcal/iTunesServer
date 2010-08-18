@@ -3,7 +3,6 @@ var playing_id = null;
 var g_tracks = {};
 var g_playlists = {};
 var g_search = '';
-var g_user = '<?=$_SERVER[REMOTE_USER]?>';
 var g_list = 0;
 var g_renaming_list = 0;
 
@@ -397,7 +396,11 @@ function buildTrackHTML(id, data){
 
 	html += "<td>"+data.id+"</td>\n";
 	html += "<td>"+escapeXML(data.t)+"</td>\n";
-	html += "<td>"+escapeXML(data.n)+"</td>\n";
+	if (data.n != '0'){
+		html += "<td align=\"right\">"+escapeXML(data.n)+"</td>\n";
+	}else{
+		html += "<td>&nbsp;</td>\n";
+	}
 	html += "<td>"+escapeXML(data.ar)+"</td>\n";
 	html += "<td>"+escapeXML(data.al)+"</td>\n";
 
