@@ -16,4 +16,13 @@ $_SERVER[REMOTE_USER] = 'cal';
 
 	include(INCLUDE_DIR.'/lib_db.php');
 	include(INCLUDE_DIR.'/lib_misc.php');
+
+
+
+	function dumper($foo){
+
+		echo "<pre style=\"text-align: left;\">";
+		echo HtmlSpecialChars(var_export($foo, 1));
+		echo "</pre>\n";
+	}
 ?>
