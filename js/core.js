@@ -364,17 +364,8 @@ function buildPlaylistHTML(o){
 		html += " oncontextmenu=\"trackContext(event, '"+id+"'); return false\"";
 		html += " onselectstart=\"return false\">\n";
 
-		if (id == playing_id){
-			html += "<td id=\"playing"+id+"\">"+playingHTML()+"</td>\n";
-		}else{
-			html += "<td id=\"playing"+id+"\">&nbsp;</td>\n";
-		}
+		html += buildTrackHTML(id, o.tracks[id]);
 
-		html += "<td>"+o.tracks[id].id+"</td>\n";
-		html += "<td>"+escapeXML(o.tracks[id].t)+"</td>\n";
-		html += "<td>"+escapeXML(o.tracks[id].n)+"</td>\n";
-		html += "<td>"+escapeXML(o.tracks[id].ar)+"</td>\n";
-		html += "<td>"+escapeXML(o.tracks[id].al)+"</td>\n";
 		html += "</tr>\n";
 	}
 
@@ -392,6 +383,30 @@ function buildPlaylistHTML(o){
 	}
 
 	return html;
+}
+
+function buildTrackHTML(id, data){
+
+	var html = '';
+
+	if (id == playing_id){
+		html += "<td id=\"playing"+id+"\">"+playingHTML()+"</td>\n";
+	}else{
+		html += "<td id=\"playing"+id+"\">&nbsp;</td>\n";
+	}
+
+	html += "<td>"+data.id+"</td>\n";
+	html += "<td>"+escapeXML(data.t)+"</td>\n";
+	html += "<td>"+escapeXML(data.n)+"</td>\n";
+	html += "<td>"+escapeXML(data.ar)+"</td>\n";
+	html += "<td>"+escapeXML(data.al)+"</td>\n";
+
+	return html;
+}
+
+function rebuildTrack(id){
+
+	$('#track'+id).html(buildTrackHTML(id, g_tracks[id]));
 }
 
 function select(id, e){
@@ -911,7 +926,15 @@ function doneEditTrack(){
 
 		if (o.ok){
 			// update something!
-			alert('ok!');
+
+			var key = 't'+args.id;
+
+			g_tracks[key].t = args.t;
+			g_tracks[key].ar = args.ar;
+			g_tracks[key].al = args.al;
+			g_tracks[key].n = args.n;
+
+			rebuildTrack(key);
 		}
 
 		$('#info-dialog').hide();
