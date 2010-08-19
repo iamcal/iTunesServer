@@ -1013,9 +1013,14 @@ function updateOrderHeaders(){
 
 	if (g_order == 'album_fwd'){ $('#col-head-album').addClass('sort-fwd'); }else{ $('#col-head-album').removeClass('sort-fwd'); }
 	if (g_order == 'album_rev'){ $('#col-head-album').addClass('sort-rev'); }else{ $('#col-head-album').removeClass('sort-rev'); }
+
+	if (g_order == 'pl_fwd'){ $('#col-head-num').addClass('sort-fwd'); }else{ $('#col-head-num').removeClass('sort-fwd'); }
+	if (g_order == 'pl_rev'){ $('#col-head-num').addClass('sort-rev'); }else{ $('#col-head-num').removeClass('sort-rev'); }
 }
 
 function resort(sort_type){
+
+	if (g_list == 0 && sort_type == 'pl') return;
 
 	g_order = (g_order == sort_type + '_fwd') ? sort_type + '_rev' : sort_type + '_fwd';
 	getTracks();
@@ -1027,4 +1032,5 @@ $(document).ready(function(){
 	$('#col-head-track').click(function(){ resort('track'); });
 	$('#col-head-artist').click(function(){ resort('artist'); });
 	$('#col-head-album').click(function(){ resort('album'); });
+	$('#col-head-num').click(function(){ resort('pl'); });
 });

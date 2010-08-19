@@ -66,7 +66,7 @@
 		<table id="playlist">
 			<thead>
 				<tr>
-					<th>&nbsp;</th>
+					<th id="col-head-num"><div>&nbsp;</div></th>
 					<th>GUID</th>
 					<th width="33%" id="col-head-track"><div>Name</div></th>
 					<th>#</th>
