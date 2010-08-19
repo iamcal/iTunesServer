@@ -114,23 +114,6 @@ function getTracks(start){
 	});
 }
 
-function getState(){
-	ajaxify('ajax.php', {'q': 'get_state'}, function(o){
-
-		if (o.ok){
-			updatePlayState(o);
-			ge('current').innerHTML = escapeXML(o.current);
-
-			if (o.current != g_song_name){
-
-				g_song_name = o.current;
-				getPlaylist();
-				updateArtwork();
-			}
-		}
-	});
-}
-
 function doPrev(){
 	var prev = null;
 	for (var i in g_tracks){

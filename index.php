@@ -82,7 +82,9 @@
 </div>
 <div id="btmbar">
 	<div id="buttons">
-		<a href="#" onclick="getState(); return false"><img src="images/sync.gif" width="40" height="20" /></a>
+<? if (0){ ?>
+		<a href="#"><img src="images/sync.gif" width="40" height="20" /></a>
+<? } ?>
 	</div>
 	<div id="status"></div>
 </div>
