@@ -10,6 +10,7 @@
 
 	$cfg[file_roots] = array(
 		'C:/Documents and Settings/Administrator/Desktop/music',
+		#'C:/Documents and Settings/Administrator/My Documents/My Music/iTunes/iTunes Music',
 	);
 
 
