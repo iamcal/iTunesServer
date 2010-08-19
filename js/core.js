@@ -1016,4 +1016,16 @@ $(document).ready(function(){
 	$('#col-head-artist').click(function(){ resort('artist'); });
 	$('#col-head-album').click(function(){ resort('album'); });
 	$('#col-head-num').click(function(){ resort('pl'); });
+
+
+	//
+	// enter & escape keys in dialogs
+	//
+
+	$('#info-dialog input').keypress(function(e){
+		if (e.keyCode == 27) $('#info-dialog').hide();
+		if (e.keyCode == 10) doneEditTrack();
+		if (e.keyCode == 13) doneEditTrack();
+	});
+
 });
