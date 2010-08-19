@@ -7,7 +7,7 @@
 
 	$getID3 = new getID3;
 
-	$rows = db_fetch_all("SELECT * FROM tracks");
+	$rows = db_fetch_all("SELECT * FROM tracks WHERE updated=0");
 
 	foreach ($rows as $row){
 
