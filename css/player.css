@@ -72,6 +72,7 @@ a img {
 	font-family: Helvetica, Arial, sans-serif;
 	font-weight: bold;
 	font-size: 12px;
+	text-shadow: 1px 1px rgba(255, 255, 255, 0.5);
 }
 
 #textbox {
@@ -259,6 +260,7 @@ table#playlist th {
 	border-bottom: 1px solid #555555;
 	text-align: left;
 	border-right: 1px solid #B2B2B2;
+	text-shadow: 1px 1px rgba(255, 255, 255, 0.5);
 }
 
 table#playlist td {
@@ -329,6 +331,7 @@ table#playlist tr#loadmore td div {
 	padding-top: 6px;
 	color: #627080;
 	font-weight: bold;
+	text-shadow: 1px 1px rgba(255, 255, 255, 0.5);
 }
 
 .playlist {
@@ -386,6 +389,7 @@ table#playlist tr#loadmore td div {
 	font-size: 11px;
 	font-family: Helvetica, Arial, sans-serif;
 	line-height: 25px;
+	text-shadow: 1px 1px rgba(255, 255, 255, 0.5);
 }
 
 #dragbox {
@@ -444,4 +448,22 @@ table#playlist tr#loadmore td div {
 	padding: 4px;
 	font-size: 13px;
 	font-family: Helvetica, Arial, sans-serif;
+}
+
+table#playlist th.sort-fwd,
+table#playlist th.sort-rev {
+	background-image: url(../images/th_bg_on.gif);
+	background-color: #A7B7CC;
+}
+
+table#playlist th.sort-fwd div {
+	background-image: url(../images/sort_down.gif);
+	background-repeat: no-repeat;
+	background-position: right center;
+}
+
+table#playlist th.sort-rev div {
+	background-image: url(../images/sort_up.gif);
+	background-repeat: no-repeat;
+	background-position: right center;
 }

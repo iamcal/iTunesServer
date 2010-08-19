@@ -68,10 +68,10 @@
 				<tr>
 					<th>&nbsp;</th>
 					<th>GUID</th>
-					<th width="33%">Name</th>
+					<th width="33%" id="col-head-track"><div>Name</div></th>
 					<th>#</th>
-					<th width="33%">Artist</th>
-					<th width="33%">Album</th>
+					<th width="33%" id="col-head-artist"><div>Artist</div></th>
+					<th width="33%" id="col-head-album"><div>Album</div></th>
 				</tr>
 			</thead>
 			<tbody id="playlistbody">

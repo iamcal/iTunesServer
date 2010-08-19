@@ -16,6 +16,8 @@ var g_dragging = false;
 var g_dragging_target = null;
 var g_inflight = 0;
 
+var g_order = null;
+
 function ge(x){
 	return document.getElementById(x);
 }
@@ -96,9 +98,13 @@ function getTracks(start){
 		'start'	: start ? start : 0,
 		's'	: g_search,
 		'l'	: g_list,
+		'o'	: g_order,
 	};
 
 	ajaxify('ajax.php', args, function(o){
+
+		g_order = o.order;
+		updateOrderHeaders();
 
 		buildPlaylist(o);
 
@@ -997,3 +1003,28 @@ function trackContext(e, id){
 	], p);
 }
 
+function updateOrderHeaders(){
+
+	if (g_order == 'track_fwd'){ $('#col-head-track').addClass('sort-fwd'); }else{ $('#col-head-track').removeClass('sort-fwd'); }
+	if (g_order == 'track_rev'){ $('#col-head-track').addClass('sort-rev'); }else{ $('#col-head-track').removeClass('sort-rev'); }
+
+	if (g_order == 'artist_fwd'){ $('#col-head-artist').addClass('sort-fwd'); }else{ $('#col-head-artist').removeClass('sort-fwd'); }
+	if (g_order == 'artist_rev'){ $('#col-head-artist').addClass('sort-rev'); }else{ $('#col-head-artist').removeClass('sort-rev'); }
+
+	if (g_order == 'album_fwd'){ $('#col-head-album').addClass('sort-fwd'); }else{ $('#col-head-album').removeClass('sort-fwd'); }
+	if (g_order == 'album_rev'){ $('#col-head-album').addClass('sort-rev'); }else{ $('#col-head-album').removeClass('sort-rev'); }
+}
+
+function resort(sort_type){
+
+	g_order = (g_order == sort_type + '_fwd') ? sort_type + '_rev' : sort_type + '_fwd';
+	getTracks();
+}
+
+
+$(document).ready(function(){
+
+	$('#col-head-track').click(function(){ resort('track'); });
+	$('#col-head-artist').click(function(){ resort('artist'); });
+	$('#col-head-album').click(function(){ resort('album'); });
+});

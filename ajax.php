@@ -21,15 +21,32 @@
 
 		$select = "t.*";
 		$tables = "tracks AS t";
-		$order = "t.artist ASC, t.album ASC, t.num ASC, t.track ASC";
+
+		$orders = array(
+			'artist_fwd'	=> "t.artist ASC, t.album ASC, t.num ASC, t.track ASC",
+			'artist_rev'	=> "t.artist DESC, t.album ASC, t.num ASC, t.track ASC",
+
+			'track_fwd'	=> "t.track ASC, t.artist ASC, t.album ASC, t.num ASC",
+			'track_rev'	=> "t.track DESC, t.artist DESC, t.album ASC, t.num ASC",
+
+			'album_fwd'	=> "t.album ASC, t.artist ASC, t.num ASC, t.track ASC",
+			'album_rev'	=> "t.album DESC, t.artist DESC, t.num ASC, t.track ASC",
+		);
+		$def_order = 'artist_fwd';
 
 		if ($_REQUEST[l]){
 			$l = $_REQUEST[l];
-			$select .= ", l.id AS uid";
+			$select .= ", l.id AS uid, l.in_order";
 			$tables .= ", playlist_tracks AS l";
 			$where .= " AND l.track_id=t.id AND l.playlist_id=".intval($_REQUEST[l]);
-			$order = "l.in_order ASC";
+
+			$orders['pl_fwd'] = "l.in_order ASC";
+			$orders['pl_rev'] = "l.in_order ASC";
+			$def_order = 'pl_fwd';
 		}
+
+		$o_key = $orders[$_REQUEST[o]] ? $_REQUEST[o] : $def_order;
+		$order = $orders[$o_key];
 
 		$rows = db_fetch_all("SELECT $select FROM $tables WHERE $where ORDER BY $order LIMIT $start, $num");
 		list($total) = db_fetch_list(db_query("SELECT COUNT(t.id) FROM $tables WHERE $where"));
@@ -50,6 +67,10 @@
 				'n' => $row[num],
 				't' => $row[track],
 			);
+
+			if ($l){
+				$tracks[$uid]['or'] = $row[in_order];
+			}
 		}
 
 		exit_with_json(array(
@@ -57,6 +78,7 @@
 			'start'		=> $start,
 			'num'		=> $num,
 			'total'		=> intval($total),
+			'order'		=> $o_key,
 			'tracks'	=> $tracks,
 		));
 	}
