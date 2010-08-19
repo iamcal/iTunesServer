@@ -41,7 +41,7 @@
 			$where .= " AND l.track_id=t.id AND l.playlist_id=".intval($_REQUEST[l]);
 
 			$orders['pl_fwd'] = "l.in_order ASC";
-			$orders['pl_rev'] = "l.in_order ASC";
+			$orders['pl_rev'] = "l.in_order DESC";
 			$def_order = 'pl_fwd';
 		}
 
