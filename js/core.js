@@ -88,7 +88,7 @@ function getPlaylists(){
 function getTracks(start){
 
 	if (!start){
-		ge('playlistbody').innerHTML = '';
+		$('#playlistbody').html();
 	}
 
 	startProgress();
@@ -98,7 +98,7 @@ function getTracks(start){
 		'start'	: start ? start : 0,
 		's'	: g_search,
 		'l'	: g_list,
-		'o'	: g_order,
+		'o'	: g_order
 	};
 
 	ajaxify('ajax.php', args, function(o){
@@ -308,7 +308,7 @@ function buildPlaylist(o){
 
 		g_tracks = o.tracks;
 
-		ge('playlistbody').innerHTML = buildPlaylistHTML(o);
+		$('#playlistbody').html(buildPlaylistHTML(o));
 	}else{
 
 		var html = buildPlaylistHTML(o);
@@ -316,7 +316,7 @@ function buildPlaylist(o){
 		var note = ge('loadmore');
 		note.parentNode.removeChild(note);
 
-		ge('playlistbody').innerHTML += html;
+		$('#playlistbody').html($('#playlistbody').html() + html);
 
 		for (var i in o.tracks){
 			g_tracks[i] = o.tracks[i];
@@ -346,11 +346,11 @@ function buildPlaylistHTML(o){
 	for (var i=0; i<keys.length; i++){
 		var id = keys[i];
 
-		var class = (r % 2) ? 'row-1' : 'row-2';
+		var classs = (r % 2) ? 'row-1' : 'row-2';
 		r++;
-		if (o.tracks[id].current) class += ' current';
+		if (o.tracks[id].current) classs += ' current';
 
-		html += "<tr id=\"track"+id+"\" class=\""+class+"\"";
+		html += "<tr id=\"track"+id+"\" class=\""+classs+"\"";
 		html += " onclick=\"select('"+id+"', event); return false\"";
 		html += " ondblclick=\"playback('"+id+"'); return false\"";
 		html += " onmousedown=\"startTrackDrag(event, '"+id+"'); return false\"";
@@ -545,7 +545,7 @@ function playSong(idx){
 		onfinish: function(){
 			// play the next
 			doNext();
-		},
+		}
 	};
 	song = soundManager.createSound(playdata);
 
@@ -660,7 +660,7 @@ function saveRenamingList(){
 	ajaxify('ajax.php', {
 		'q'	: 'rename_playlist',
 		'id'	: g_renaming_list,
-		'name'	: edit.value,
+		'name'	: edit.value
 	}, function(o){
 	});
 	stopRenamingList();
@@ -771,7 +771,7 @@ function doc_mouseup(e){
 				ajaxify('ajax.php', {
 					'q'		: 'add_to_playlist',
 					'id'		: g_dragging_target,
-					'tracks'	: get_selection_ids(),
+					'tracks'	: get_selection_ids()
 				}, function(o){
 					if (!o.ok) alert('error: '+o.error);
 				});
@@ -870,7 +870,7 @@ document.onkeydown = function(e){
 			ajaxify('ajax.php', {
 				'q'		: 'remove_from_playlist',
 				'id'		: g_list,
-				'tracks'	: gsel.join(','),
+				'tracks'	: gsel.join(',')
 			}, function(o){
 				if (!o.ok){
 					alert('error: '+o.error);
@@ -916,7 +916,7 @@ function doneEditTrack(){
 		't'	: $('#edit-track').val(),
 		'ar'	: $('#edit-artist').val(),
 		'al'	: $('#edit-album').val(),
-		'n'	: $('#edit-num').val(),
+		'n'	: $('#edit-num').val()
 	};
 
 	ajaxify('ajax.php', args, function(o){
@@ -962,7 +962,7 @@ function open_menu(options, p){
 
 	m.css({
 		'left' : p[0]+'px',
-		'top' : p[1]+'px',
+		'top' : p[1]+'px'
 	});
 	m.show();
 
