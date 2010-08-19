@@ -92,8 +92,9 @@
 
 <div id="progress"><img src="images/zoom-spin-1.png" id="progress-img"></div>
 
-<div id="info-dialog">
-<div class="inner">
+<div class="dialog" id="info-dialog">
+<a class="dialog-shade" onclick="$('#info-dialog').hide(); return false;" href="#"></a>
+<div class="dialog-inner">
 
 	<table>
 		<tr>

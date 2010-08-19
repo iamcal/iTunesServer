@@ -235,6 +235,7 @@ a img {
 	top: 4px;
 }
 
+/* ################################### PLAYLIST TABLE ################################### */
 
 table#playlist {
 	border-collapse: collapse;
@@ -299,6 +300,27 @@ table#playlist tr#loadmore td div {
 	border: 1px solid #666;
 }
 
+table#playlist th.sort-fwd,
+table#playlist th.sort-rev {
+	background-image: url(../images/th_bg_on.gif);
+	background-color: #A7B7CC;
+}
+
+table#playlist th.sort-fwd div {
+	background-image: url(../images/sort_down.gif);
+	background-repeat: no-repeat;
+	background-position: right center;
+}
+
+table#playlist th.sort-rev div {
+	background-image: url(../images/sort_up.gif);
+	background-repeat: no-repeat;
+	background-position: right center;
+}
+
+
+/* ################################### SPINNER ################################### */
+
 #progress {
 	position: fixed;
 	left: 50%;
@@ -310,6 +332,8 @@ table#playlist tr#loadmore td div {
 	left: -25px;
 	top: -25px;
 }
+
+/* ################################### MISC ################################### */
 
 #soundmanager-debug {
 	position: absolute;
@@ -410,19 +434,23 @@ table#playlist tr#loadmore td div {
 	color: lime;
 }
 
-#info-dialog {
+/* ################################### DIALOGS ################################### */
+
+.dialog {
 	display: none;
 	position: fixed;
 	left: 50%;
-	top: 50%;
+	top: 20%;
+	-moz-border-radius: 7px 7px 7px 7px;
+	background-color: rgba(53, 62, 65, 0.3);
+	margin-left: -200px;
+	padding: 10px;
+	width: 400px;
+	z-index: 10;
 }
 
-#info-dialog div.inner {
-	position: absolute;
-	width: 400px;
-	height: 400px;
-	left: -200px;
-	top: -200px;
+.dialog-inner {
+	position: relative;
 	background-color: white;
 	border: 2px solid #666;
 	padding: 1em;
@@ -430,10 +458,22 @@ table#playlist tr#loadmore td div {
 	font-family: Helvetica, Arial, sans-serif;
 }
 
+.dialog-shade {
+	background: none repeat scroll 0 0 rgba(0, 0, 0, 0.3);
+	cursor: default;
+	display: block;
+	height: 100%;
+	left: 0;
+	position: fixed;
+	top: 0;
+	width: 100%
+}
+
 #info-dialog td {
 	font-size: 13px;
 }
 
+/* ################################### CONTEXT MENUS ################################### */
 
 #contextmenu {
 	display: none;
@@ -475,20 +515,5 @@ table#playlist tr#loadmore td div {
 	padding-top:3px;
 }
 
-table#playlist th.sort-fwd,
-table#playlist th.sort-rev {
-	background-image: url(../images/th_bg_on.gif);
-	background-color: #A7B7CC;
-}
 
-table#playlist th.sort-fwd div {
-	background-image: url(../images/sort_down.gif);
-	background-repeat: no-repeat;
-	background-position: right center;
-}
 
-table#playlist th.sort-rev div {
-	background-image: url(../images/sort_up.gif);
-	background-repeat: no-repeat;
-	background-position: right center;
-}
