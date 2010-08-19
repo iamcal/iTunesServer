@@ -8,7 +8,7 @@
 ?>
 <html>
 <head>
-	<title>Player</title>
+	<title>iTunes Server</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 	<link rel="stylesheet" type="text/css" media="all" href="css/player.css?<?=time()?>" />
@@ -24,7 +24,7 @@
 <body>
 
 <div id="topbar">
-	<div id="title">Player</div>
+	<div id="title">iTunes Server</div>
 
 	<div id="prev"><a href="#" onclick="doPrev(); return false;"><img src="images/btn_prev.gif" width="31" height="32" /></a></div>
 	<div id="play"><a href="#" onclick="doPlay(); return false;"><img src="images/btn_play.gif" width="37" height="38" id="playbtnimg" /></a></div>
