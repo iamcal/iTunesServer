@@ -1,24 +1,3 @@
--- phpMyAdmin SQL Dump
--- version 3.2.4
--- http://www.phpmyadmin.net
---
--- Host: localhost
--- Generation Time: Aug 17, 2010 at 03:28 PM
--- Server version: 5.1.37
--- PHP Version: 5.2.10-2ubuntu6.4
-
-SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
-
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
-
---
--- Database: `cal`
---
-
 -- --------------------------------------------------------
 
 --
@@ -32,7 +11,7 @@ CREATE TABLE IF NOT EXISTS `playlists` (
   `date_create` int(10) unsigned NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `user` (`user`,`name`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -47,7 +26,20 @@ CREATE TABLE IF NOT EXISTS `playlist_tracks` (
   `in_order` int(10) unsigned NOT NULL,
   PRIMARY KEY (`id`),
   KEY `playlist_id` (`playlist_id`,`in_order`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=36 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `plays`
+--
+
+CREATE TABLE IF NOT EXISTS `plays` (
+  `user` varchar(255) NOT NULL,
+  `track_key` varchar(255) NOT NULL,
+  `num` int(10) unsigned NOT NULL,
+  PRIMARY KEY (`user`,`track_key`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -63,6 +55,10 @@ CREATE TABLE IF NOT EXISTS `tracks` (
   `num` tinyint(3) unsigned NOT NULL,
   `track` varchar(255) NOT NULL,
   `file` varchar(255) NOT NULL,
+  `last_seen` int(10) unsigned NOT NULL,
+  `last_scanned` int(10) unsigned NOT NULL,
+  `updated` tinyint(3) unsigned NOT NULL,
   PRIMARY KEY (`id`),
+  UNIQUE KEY `file` (`file`),
   KEY `artist` (`artist`,`album`,`num`,`track`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=68423 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
