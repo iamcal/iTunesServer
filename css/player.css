@@ -443,17 +443,18 @@ table#playlist th.sort-rev div {
 	top: 20%;
 	-moz-border-radius: 7px 7px 7px 7px;
 	background-color: rgba(53, 62, 65, 0.3);
-	margin-left: -200px;
+	margin-left: -300px;
 	padding: 10px;
-	width: 400px;
+	width: 600px;
 	z-index: 10;
 }
 
 .dialog-inner {
 	position: relative;
 	background-color: white;
-	border: 2px solid #666;
-	padding: 1em;
+	-moz-border-radius: 5px 5px 5px 5px;
+	border: 2px solid rgba(0, 0, 0, 0.5);
+	padding: 20px;
 	font-size: 13px;
 	font-family: Helvetica, Arial, sans-serif;
 }
@@ -467,6 +468,26 @@ table#playlist th.sort-rev div {
 	position: fixed;
 	top: 0;
 	width: 100%
+}
+
+.dialog-inner h1 {
+	margin-top: 0;
+}
+
+.dialog-guts {
+	background:none repeat scroll 0 0 #E9F0F0;
+	border-bottom:1px solid #BECCCC;
+	border-top:1px solid #BECCCC;
+	color:rgba(0, 0, 0, 0.6);
+	margin:10px -20px 15px;
+	max-height:320px;
+	overflow:auto;
+	padding:20px;
+	text-shadow:0 1px 1px #FFFFFF;
+}
+
+.dialog-buttons {
+	text-align: right;
 }
 
 #info-dialog td {

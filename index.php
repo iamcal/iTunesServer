@@ -96,28 +96,27 @@
 <a class="dialog-shade" onclick="$('#info-dialog').hide(); return false;" href="#"></a>
 <div class="dialog-inner">
 
-	<table>
-		<tr>
-			<td>Title:</td>
-			<td><input type="text" id="edit-track" style="width: 300px;" value="" /></td>
-		</tr>
-		<tr>
-			<td>Artist:</td>
-			<td><input type="text" id="edit-artist" style="width: 300px;" value="" /></td>
-		</tr>
-		<tr>
-			<td>Album:</td>
-			<td><input type="text" id="edit-album" style="width: 300px;" value="" /></td>
-		</tr>
-		<tr>
-			<td>Track #:</td>
-			<td><input type="text" id="edit-num" style="width: 30px;" value="" /></td>
-		</tr>
-	</table>
+	<h1>Edit Details</h1>
 
-	<input type="button" value="Save Changes" onclick="doneEditTrack();" />
-	<input type="button" value="Cancel" onclick="$('#info-dialog').hide();" />
+	<div class="dialog-guts">
 
+		<label for="edit-track">Title:</label><br />
+		<input type="text" id="edit-track" style="width: 400px;" value="" /><br />
+
+		<label for="edit-artist">Artist:</label><br />
+		<input type="text" id="edit-artist" style="width: 400px;" value="" /><br />
+
+		<label for="edit-album">Album:</label><br />
+		<input type="text" id="edit-album" style="width: 400px;" value="" /><br />
+
+		<label for="edit-num">Track #:</label><br />
+		<input type="text" id="edit-num" style="width: 30px;" value="" /><br />
+	</div>
+
+	<div class="dialog-buttons">
+		<input type="button" value="Save Changes" onclick="doneEditTrack();" />
+		<input type="button" value="Cancel" onclick="$('#info-dialog').hide();" />
+	</div>
 </div>
 </div>
 
