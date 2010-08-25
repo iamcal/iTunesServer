@@ -1,25 +1,18 @@
 <?
-	$cfg = array();
-
-	$cfg[db_name]			= 'music';
-	$cfg[db_host]			= 'localhost';
-	$cfg[db_user]			= 'root';
-	$cfg[db_pass]			= 'root';
-
-	$cfg[token_secret]		= 'enter-sceret-here';
-
-	$cfg[file_roots] = array(
-		'C:/Documents and Settings/Administrator/Desktop/music',
-		#'C:/Documents and Settings/Administrator/My Documents/My Music/iTunes/iTunes Music',
-	);
-
-
 	#
-	# load the libraries
+	# $Id$
 	#
 
 	define('INCLUDE_DIR', dirname(__FILE__));
 
+
+	#
+	# load the config & libraries
+	#
+
+	if (!@include(INCLUDE_DIR.'/config.php')){
+		echo "You need to rename <code>include/config.php.example</code> to <code>include/config.php</code> and modify the settings.";
+	}
 	include(INCLUDE_DIR.'/lib_db.php');
 	include(INCLUDE_DIR.'/lib_misc.php');
 

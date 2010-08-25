@@ -1,0 +1,45 @@
+<?
+	$cfg = array();
+
+	#
+	# Your database settings go here. You will need to import the schema
+	# included in schema.sql
+	#
+
+	$cfg[db_name] = 'itunes_server';
+	$cfg[db_host] = 'localhost';
+	$cfg[db_user] = 'www-rw';
+	$cfg[db_pass] = 'my-password';
+
+
+	#
+	# This token is used to sign your login tokens. Make
+	# it unguessable.
+	#
+
+	$cfg[token_secret] = 'some-long-random-string';
+
+
+	#
+	# This is a list of paths to import music from.
+	# Only use forward slashes, even on windows servers.
+	#
+
+	$cfg[file_roots] = array(
+		'C:/Documents and Settings/Bob/Desktop/My Music',
+		'/var/mp3',
+		'/as/many/paths/as/you/like',
+	);
+
+
+	#
+	# Enter your last.fm api key and secret here
+	# >> http://www.last.fm/api/account
+	#
+	# Make sure you set the callback URL to your version of:
+	# >> http://your-itunes-server.com/lastfm_auth.php
+	#
+
+	$cfg[lastfm_apikey] = '-';
+	$cfg[lastfm_secret] = '-';
+?>
