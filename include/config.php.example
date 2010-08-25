@@ -13,6 +13,15 @@
 
 
 	#
+	# Authentication setup
+	#
+
+	$cfg[allow_anon_users]		= false;
+	$cfg[allow_authed_users]	= false;
+	$cfg[allow_signup]		= false;
+
+
+	#
 	# This token is used to sign your login tokens. Make
 	# it unguessable.
 	#
@@ -42,4 +51,13 @@
 
 	$cfg[lastfm_apikey] = '-';
 	$cfg[lastfm_secret] = '-';
+
+
+	#
+	# You probably don't need to set these, unless you're playing
+	# with subdomains.
+	#
+
+	$cfg[cookie_path] = null;
+	$cfg[cookie_domain] = null;
 ?>
