@@ -5,6 +5,8 @@
 
 	include('include/init.php');
 
+	auth_ensure_loggedin();
+
 
 	#
 	# exchange the token for a session key (and store it)
