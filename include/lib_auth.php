@@ -36,6 +36,13 @@
 		setcookie('u', $value, $expire, $GLOBALS[cfg][cookie_path], $GLOBALS[cfg][cookie_domain]);
 	}
 
+	function auth_logout(){
+
+		$expire = time() - (60 * 60);
+
+		setcookie('u', '0', $expire, $GLOBALS[cfg][cookie_path], $GLOBALS[cfg][cookie_domain]);
+	}
+
 	##############################################################
 
 	function auth_hash_password($password){

@@ -538,3 +538,11 @@ table#playlist th.sort-rev div {
 
 
 
+#login {
+	margin: 0.5em;
+	padding: 0.5em;
+	background-color: #C0C9D8;
+	border: 1px solid #8496B4;
+	font-size: 13px;
+	font-family: Helvetica, Arial, sans-serif;
+}

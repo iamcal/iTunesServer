@@ -1,10 +1,13 @@
 <?
 	include('include/init.php');
 
-	header('Content-type: text/html; charset=UTF-8');
+	if (!$cfg[allow_anon_users] && !$cfg[user][id]){
 
-	$user = 'cal';
-	$auth = auth_create_token($user);
+		header("location: login.php");
+		exit;
+	}
+
+	header('Content-type: text/html; charset=UTF-8');
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
 <html>
@@ -19,7 +22,16 @@
 	<script type="text/javascript" src="sm2/flashblock.js"></script>
 	<script type="text/javascript" src="js/jquery-1.4.2.min.js"></script>
 	<script type="text/javascript" src="js/core.js?<?=time()?>"></script>
-	<script type="text/javascript"> var g_user = '<?=$user?>'; var g_auth = '<?=$auth?>'; </script>
+
+<script type="text/javascript">
+<? if ($cfg[user][id]){ ?>
+var g_user = '<?=$cfg[user][name]?>';
+var g_auth = '<?=auth_create_token($cfg[user][name])?>';
+<? }else{ ?>
+var g_user = null;
+var g_auth = '<?=auth_create_token('anon')?>';
+<? } ?>
+</script>
 
 </head>
 <body>
@@ -54,8 +66,16 @@
 	<div id="sidebar">
 
 <? if (0){ ?>
-		<a href="#" onclick="updateArtwork(); return false;"><img src="artwork.png" id="artwork" /></a>
+		<a href="#" onclick="updateArtwork(); return false;">ART<img src="artwork.png" id="artwork" /></a>
 <? } ?>
+
+		<div id="login">
+<? if ($cfg[user][id]){ ?>
+			Hello <?=HtmlSpecialChars($cfg[user][name])?> [<a href="logout.php">Logout</a>]<br />
+<? }else{ ?>
+			Guest [<a href="login.php">Log in</a>]<br />
+<? } ?>
+		</div>
 
 		<div id="playlists">
 			<!-- stuff will go here -->
