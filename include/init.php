@@ -15,6 +15,8 @@
 	}
 	include(INCLUDE_DIR.'/lib_db.php');
 	include(INCLUDE_DIR.'/lib_misc.php');
+	include(INCLUDE_DIR.'/lib_lastfm.php');
+	include(INCLUDE_DIR.'/lib_http.php');
 
 
 	#
