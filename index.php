@@ -20,7 +20,7 @@
 
 	<script type="text/javascript" src="sm2/soundmanager2.js"></script>
 	<script type="text/javascript" src="sm2/flashblock.js"></script>
-	<script type="text/javascript" src="js/jquery-1.4.2.min.js"></script>
+	<script type="text/javascript" src="js/jquery-3.6.1.min.js"></script>
 	<script type="text/javascript" src="js/core.js?<?=time()?>"></script>
 
 <script type="text/javascript">
