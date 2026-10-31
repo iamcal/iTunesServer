@@ -12,8 +12,8 @@
 	# are we logging in?
 	#
 
-	$u = trim($_POST[username]);
-	$p = trim($_POST[password]);
+	$u = trim($_POST['username']);
+	$p = trim($_POST['password']);
 	$bad_login = 0;
 
 	if (strlen($u) && strlen($p)){
@@ -21,7 +21,7 @@
 		$u_enc = AddSlashes($u);
 		$row = db_fetch_hash(db_query("SELECT * FROM users WHERE name='$u_enc'"));
 
-		if (auth_compare_password($p, $row[password])){
+		if (auth_compare_password($p, $row['password'])){
 
 			auth_set_login($row);
 
@@ -65,7 +65,7 @@
 
 
 	<div id="login">
-<?php if ($cfg[allow_authed_users]){ ?>
+<?php if ($cfg['allow_authed_users']){ ?>
 
 		<form action="login.php" method="post">
 	<?php if ($bad_login){ ?>
@@ -76,11 +76,11 @@
 			<input type="submit" value="Log In" />
 		</form>
 
-	<?php if ($cfg[allow_anon_users]){ ?>
+	<?php if ($cfg['allow_anon_users']){ ?>
 		Or <a href="./">use anonymously</a>.
 	<?php } ?>
 <?php }else{ ?>
-	<?php if ($cfg[allow_anon_users]){ ?>
+	<?php if ($cfg['allow_anon_users']){ ?>
 		You can only <a href="./">use this anonymously</a>.
 	<?php }else{ ?>
 		Autnenticated and anonymous access are both turned off. Oops!

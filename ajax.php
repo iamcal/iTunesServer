@@ -1,21 +1,21 @@
 <?php
 	include('include/init.php');
 
-	$_GLOBALS[authed_user] = auth_check_token($_REQUEST['_auth']);
+	$_GLOBALS['authed_user'] = auth_check_token($_REQUEST['_auth']);
 
 
 	#
 	# returns (a portion of) a playlist
 	#
 
-	if ($_REQUEST[q] == 'get_tracks'){
+	if ($_REQUEST['q'] == 'get_tracks'){
 
-		$start = intval($_REQUEST[start]);
+		$start = intval($_REQUEST['start']);
 		$num = 500;
 
 		$where = "1";
-		if ($_REQUEST[s]){
-			$s = "'%".db_escape_like(AddSlashes($_REQUEST[s]))."%'";
+		if ($_REQUEST['s']){
+			$s = "'%".db_escape_like(AddSlashes($_REQUEST['s']))."%'";
 			$where = "(t.artist LIKE $s OR t.album LIKE $s OR t.track LIKE $s)";
 		}
 
@@ -34,18 +34,18 @@
 		);
 		$def_order = 'artist_fwd';
 
-		if ($_REQUEST[l]){
-			$l = $_REQUEST[l];
+		if ($_REQUEST['l']){
+			$l = $_REQUEST['l'];
 			$select .= ", l.id AS uid, l.in_order";
 			$tables .= ", playlist_tracks AS l";
-			$where .= " AND l.track_id=t.id AND l.playlist_id=".intval($_REQUEST[l]);
+			$where .= " AND l.track_id=t.id AND l.playlist_id=".intval($_REQUEST['l']);
 
 			$orders['pl_fwd'] = "l.in_order ASC";
 			$orders['pl_rev'] = "l.in_order DESC";
 			$def_order = 'pl_fwd';
 		}
 
-		$o_key = $orders[$_REQUEST[o]] ? $_REQUEST[o] : $def_order;
+		$o_key = $orders[$_REQUEST['o']] ? $_REQUEST['o'] : $def_order;
 		$order = $orders[$o_key];
 
 		$rows = db_fetch_all("SELECT $select FROM $tables WHERE $where ORDER BY $order LIMIT $start, $num");
@@ -61,15 +61,15 @@
 			}
 
 			$tracks[$uid] = array(
-				'id' => $row[id],
-				'ar' => $row[artist],
-				'al' => $row[album],
-				'n' => $row[num],
-				't' => $row[track],
+				'id' => $row['id'],
+				'ar' => $row['artist'],
+				'al' => $row['album'],
+				'n' => $row['num'],
+				't' => $row['track'],
 			);
 
 			if ($l){
-				$tracks[$uid]['or'] = $row[in_order];
+				$tracks[$uid]['or'] = $row['in_order'];
 			}
 		}
 
@@ -88,12 +88,12 @@
 	# get the full list of playlists
 	#
 
-	if ($_REQUEST[q] == 'get_playlists'){
+	if ($_REQUEST['q'] == 'get_playlists'){
 
 		$rows = db_fetch_all("SELECT * FROM playlists ORDER BY user ASC, date_create ASC");
 		$out = array();
 		foreach ($rows as $row){
-			$out[$row[user]][$row[id]] = $row[name];
+			$out[$row['user']][$row['id']] = $row['name'];
 		}
 
 		exit_with_json(array(
@@ -107,11 +107,11 @@
 	# playlist editing
 	#
 
-	if ($_REQUEST[q] == 'rename_playlist'){
+	if ($_REQUEST['q'] == 'rename_playlist'){
 
-		$name = AddSlashes($_REQUEST[name]);
-		$user = AddSlashes($_GLOBALS[authed_user]);
-		$id = intval($_REQUEST[id]);
+		$name = AddSlashes($_REQUEST['name']);
+		$user = AddSlashes($_GLOBALS['authed_user']);
+		$id = intval($_REQUEST['id']);
 
 		db_query("UPDATE playlists SET name='$name' WHERE id=$id AND user='$user'");
 
@@ -120,15 +120,15 @@
 		));
 	}
 
-	if ($_REQUEST[q] == 'add_to_playlist'){
+	if ($_REQUEST['q'] == 'add_to_playlist'){
 
-		$tracks = explode(',', $_REQUEST[tracks]);
+		$tracks = explode(',', $_REQUEST['tracks']);
 
-		$playlist = intval($_REQUEST[id]);
-		$user = AddSlashes($_GLOBALS[authed_user]);
+		$playlist = intval($_REQUEST['id']);
+		$user = AddSlashes($_GLOBALS['authed_user']);
 
 		$list = db_fetch_one("SELECT * FROM playlists WHERE id=$playlist AND user='$user'");
-		if (!$list[id]){
+		if (!$list['id']){
 			exit_with_json(array(
 				'ok'	=> 0,
 				'error'	=> "list not found",
@@ -153,15 +153,15 @@
 		));
 	}
 
-	if ($_REQUEST[q] == 'remove_from_playlist'){
+	if ($_REQUEST['q'] == 'remove_from_playlist'){
 
-		$tracks = explode(',', $_REQUEST[tracks]);
+		$tracks = explode(',', $_REQUEST['tracks']);
 
-		$playlist = intval($_REQUEST[id]);
-		$user = AddSlashes($_GLOBALS[authed_user]);
+		$playlist = intval($_REQUEST['id']);
+		$user = AddSlashes($_GLOBALS['authed_user']);
 
 		$list = db_fetch_one("SELECT * FROM playlists WHERE id=$playlist AND user='$user'");
-		if (!$list[id]){
+		if (!$list['id']){
 			exit_with_json(array(
 				'ok'	=> 0,
 				'error'	=> "list not found",
@@ -183,17 +183,17 @@
 
 
 
-	if ($_REQUEST[q] == 'update_track'){
+	if ($_REQUEST['q'] == 'update_track'){
 
 
 		db_update("tracks", array(
-			'artist'	=> AddSlashes($_REQUEST[ar]),
-			'album'		=> AddSlashes($_REQUEST[al]),
+			'artist'	=> AddSlashes($_REQUEST['ar']),
+			'album'		=> AddSlashes($_REQUEST['al']),
 			#'year'		=> AddSlashes($_REQUEST[y]),
-			'num'		=> AddSlashes($_REQUEST[n]),
-			'track'		=> AddSlashes($_REQUEST[t]),
+			'num'		=> AddSlashes($_REQUEST['n']),
+			'track'		=> AddSlashes($_REQUEST['t']),
 			'updated'	=> 1, # marks pending changes that need to be pushed back to ID3
-		), "id=".intval($_REQUEST[id]));
+		), "id=".intval($_REQUEST['id']));
 
 
 		exit_with_json(array(
@@ -212,7 +212,7 @@
 
 	#################################################################################################################################################################
 
-	if ($_REQUEST[q] == 'get_state'){
+	if ($_REQUEST['q'] == 'get_state'){
 
 		$state = get_full_state();
 		$current = trim(run_command('tell app "iTunes" to get (name, artist, album) of current track'));
@@ -220,28 +220,28 @@
 		exit_with_json(array(
 			'ok'		=> 1,
 			'current'	=> $current,
-			'volume'	=> $state[volume],
-			'state'		=> $state[state],
-			'pos'		=> $state[pos],
-			'dur'		=> $state[dur],
+			'volume'	=> $state['volume'],
+			'state'		=> $state['state'],
+			'pos'		=> $state['pos'],
+			'dur'		=> $state['dur'],
 		));
 	}
 
-	if ($_REQUEST[q] == 'set_volume'){
-		run_command('tell app "iTunes" to set sound volume to '.intval($_REQUEST[v]));
+	if ($_REQUEST['q'] == 'set_volume'){
+		run_command('tell app "iTunes" to set sound volume to '.intval($_REQUEST['v']));
 
 		$state = get_full_state();
 
 		exit_with_json(array(
 			'ok' 		=> 1,
-			'volume'	=> $state[volume],
-			'state'		=> $state[state],
-			'pos'		=> $state[pos],
-			'dur'		=> $state[dur],
+			'volume'	=> $state['volume'],
+			'state'		=> $state['state'],
+			'pos'		=> $state['pos'],
+			'dur'		=> $state['dur'],
 		));
 	}
 
-	if ($_REQUEST[q] == 'volume_up'){
+	if ($_REQUEST['q'] == 'volume_up'){
 		run_command('tell app "iTunes" to set sound volume to sound volume + 5');
 		$volume = intval(run_command('tell app "iTunes" to sound volume'));
 		exit_with_json(array(
@@ -250,7 +250,7 @@
 		));
 	}
 
-	if ($_REQUEST[q] == 'volume_down'){
+	if ($_REQUEST['q'] == 'volume_down'){
 		run_command('tell app "iTunes" to set sound volume to sound volume - 5');
 		$volume = intval(run_command('tell app "iTunes" to sound volume'));
 		exit_with_json(array(
@@ -259,56 +259,56 @@
 		));
 	}
 
-	if ($_REQUEST[q] == 'prev'){
+	if ($_REQUEST['q'] == 'prev'){
 		run_command('tell app "iTunes" to previous track');
 		exit_with_json(array('ok' => 1));
 	}
 
-	if ($_REQUEST[q] == 'next'){
+	if ($_REQUEST['q'] == 'next'){
 		run_command('tell app "iTunes" to next track');
 		exit_with_json(array('ok' => 1));
 	}
 
-	if ($_REQUEST[q] == 'play_toggle'){
+	if ($_REQUEST['q'] == 'play_toggle'){
 
 		run_command('tell app "iTunes" to playpause');
 		$state = get_full_state();
 
 		exit_with_json(array(
 			'ok' 		=> 1,
-			'volume'	=> $state[volume],
-			'state'		=> $state[state],
-			'pos'		=> $state[pos],
-			'dur'		=> $state[dur],
+			'volume'	=> $state['volume'],
+			'state'		=> $state['state'],
+			'pos'		=> $state['pos'],
+			'dur'		=> $state['dur'],
 		));
 	}
 
-	if ($_REQUEST[q] == 'seek'){
+	if ($_REQUEST['q'] == 'seek'){
 
-		run_command('tell app "iTunes" to set player position to '.intval($_REQUEST[pos]));
+		run_command('tell app "iTunes" to set player position to '.intval($_REQUEST['pos']));
 		$state = get_full_state();
 
 		exit_with_json(array(
 			'ok' 		=> 1,
-			'volume'	=> $state[volume],
-			'state'		=> $state[state],
-			'pos'		=> $state[pos],
-			'dur'		=> $state[dur],
+			'volume'	=> $state['volume'],
+			'state'		=> $state['state'],
+			'pos'		=> $state['pos'],
+			'dur'		=> $state['dur'],
 		));
 	}
 
-	if ($_REQUEST[q] == 'jump_to'){
+	if ($_REQUEST['q'] == 'jump_to'){
 
-		run_command('tell app "iTunes" to reveal track index '.intval($_REQUEST[index]).' of current playlist');
-		run_command('tell app "iTunes" to play track index '.intval($_REQUEST[index]).' of current playlist');
+		run_command('tell app "iTunes" to reveal track index '.intval($_REQUEST['index']).' of current playlist');
+		run_command('tell app "iTunes" to play track index '.intval($_REQUEST['index']).' of current playlist');
 		$state = get_full_state();
 
 		exit_with_json(array(
 			'ok' 		=> 1,
-			'volume'	=> $state[volume],
-			'state'		=> $state[state],
-			'pos'		=> $state[pos],
-			'dur'		=> $state[dur],
+			'volume'	=> $state['volume'],
+			'state'		=> $state['state'],
+			'pos'		=> $state['pos'],
+			'dur'		=> $state['dur'],
 		));
 	}
 
@@ -330,7 +330,7 @@
 	}
 
 
-	if ($_REQUEST[q] == 'playlist'){
+	if ($_REQUEST['q'] == 'playlist'){
 
 		exit_with_json(get_playlist_context());
 	}
@@ -347,11 +347,11 @@
 			"return ((cur_index as text) & \"/\" & (cur_length as text))"
 		);
 
-		if (!$ret[ok]){
+		if (!$ret['ok']){
 			return $ret;
 		}
 
-		list($cur, $max) = explode('/', $ret[output]);
+		list($cur, $max) = explode('/', $ret['output']);
 
 
 		#
@@ -378,11 +378,11 @@
 
 		$ret = execute_script_itunes($script);
 
-		if (!$ret[ok]){
+		if (!$ret['ok']){
 			return $ret;
 		}
 
-		$lines = explode("\n", $ret[output]);
+		$lines = explode("\n", $ret['output']);
 		$tracks = array();
 
 		foreach ($lines as $line){
@@ -396,7 +396,7 @@
 			);
 		}
 
-		$tracks[$cur][current] = 1;
+		$tracks[$cur]['current'] = 1;
 
 		return array(
 			'ok' => 1,
@@ -404,9 +404,9 @@
 		);
 	}
 
-	if ($_REQUEST[q] == 'search'){
+	if ($_REQUEST['q'] == 'search'){
 
-		$term = AddSlashes($_REQUEST[term]);
+		$term = AddSlashes($_REQUEST['term']);
 
 		$script  = 'set tracks_list to search current playlist for "'.$term.'"'."\n";
 		$script .= 'set tracks_ref to a reference to tracks_list'."\n";
@@ -425,9 +425,9 @@
 
 		$ret = execute_script_itunes($script);
 
-		if (!$ret[ok]) exit_with_json($ret);
+		if (!$ret['ok']) exit_with_json($ret);
 
-		$lines = explode("\n", $ret[output]);
+		$lines = explode("\n", $ret['output']);
 		$cur = array_shift($lines);
 
 		$tracks = array();
@@ -444,7 +444,7 @@
 		}
 
 		if ($tracks[$cur]){
-			$tracks[$cur][current] = 1;
+			$tracks[$cur]['current'] = 1;
 		}
 
 		exit_with_json(array(
@@ -480,6 +480,6 @@
 
 	exit_with_json(array(
 		'ok'	=> 0,
-		'error'	=> 'Unknown method: '.$_REQUEST[q],
+		'error'	=> 'Unknown method: '.$_REQUEST['q'],
 	));
 ?>

@@ -1,7 +1,7 @@
 <?php
 	include('include/init.php');
 
-	if (!$cfg[allow_anon_users] && !$cfg[user][id]){
+	if (!$cfg['allow_anon_users'] && !$cfg['user']['id']){
 
 		header("location: login.php");
 		exit;
@@ -24,9 +24,9 @@
 	<script type="text/javascript" src="js/core.js?<?=time()?>"></script>
 
 <script type="text/javascript">
-<?php if ($cfg[user][id]){ ?>
-var g_user = '<?=$cfg[user][name]?>';
-var g_auth = '<?=auth_create_token($cfg[user][name])?>';
+<?php if ($cfg['user']['id']){ ?>
+var g_user = '<?=$cfg['user']['name']?>';
+var g_auth = '<?=auth_create_token($cfg['user']['name'])?>';
 <?php }else{ ?>
 var g_user = null;
 var g_auth = '<?=auth_create_token('anon')?>';
@@ -70,8 +70,8 @@ var g_auth = '<?=auth_create_token('anon')?>';
 <?php } ?>
 
 		<div id="login">
-<?php if ($cfg[user][id]){ ?>
-			Hello <?=HtmlSpecialChars($cfg[user][name])?> [<a href="logout.php">Logout</a>]<br />
+<?php if ($cfg['user']['id']){ ?>
+			Hello <?=HtmlSpecialChars($cfg['user']['name'])?> [<a href="logout.php">Logout</a>]<br />
 <?php }else{ ?>
 			Guest [<a href="login.php">Log in</a>]<br />
 <?php } ?>

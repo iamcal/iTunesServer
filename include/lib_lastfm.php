@@ -20,13 +20,13 @@
 			'token'		=> $token,
 		));
 
-		if (!$ret[ok]) return $ret;
+		if (!$ret['ok']) return $ret;
 
-		if ($ret[data][session][name] && $ret[data][session][key]){
+		if ($ret['data']['session']['name'] && $ret['data']['session']['key']){
 
 			db_update('users', array(
-				'lastfm_user'	=> AddSlashes($ret[data][session][name]),
-				'lastfm_token'	=> AddSlashes($ret[data][session][key]),
+				'lastfm_user'	=> AddSlashes($ret['data']['session']['name']),
+				'lastfm_token'	=> AddSlashes($ret['data']['session']['key']),
 			), "name='cal'");
 
 			return array(
@@ -37,7 +37,7 @@
 		return array(
 			'ok'	=> 0,
 			'error'	=> 'no_session',
-			'data'	=> $ret[data],
+			'data'	=> $ret['data'],
 		);
 	}
 
@@ -49,8 +49,8 @@
 		# extra args
 		#
 
-		$args[format] = 'json';
-		$args[api_key] = $GLOBALS[cfg][lastfm_apikey];
+		$args['format'] = 'json';
+		$args['api_key'] = $GLOBALS['cfg']['lastfm_apikey'];
 
 
 		#
@@ -64,7 +64,7 @@
 			if ($k == 'callback') continue;
 			$base .= $k.$v;
 		}
-		$args[api_sig] = md5($base.$GLOBALS[cfg][lastfm_secret]);
+		$args['api_sig'] = md5($base.$GLOBALS['cfg']['lastfm_secret']);
 
 
 		#
@@ -92,10 +92,10 @@
 		# parse
 		#
 
-		$obj = json_decode($ret[data], true);
+		$obj = json_decode($ret['data'], true);
 
 		if ($obj){
-			if ($obj[error]){
+			if ($obj['error']){
 				return array(
 					'ok'	=> 0,
 					'error'	=> 'api_error',
@@ -112,7 +112,7 @@
 		return array(
 			'ok'	=> 0,
 			'error'	=> 'bad_json',
-			'data'	=> $ret[data],
+			'data'	=> $ret['data'],
 		);
 	}
 

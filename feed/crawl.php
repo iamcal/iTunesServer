@@ -21,21 +21,21 @@
 			'track'		=> null,
 		);
 
-		try_set($tags[artist], $info[tags][id3v2][artist]);
-		try_set($tags[artist], $info[tags][id3v1][artist]);
+		try_set($tags['artist'], $info['tags']['id3v2']['artist']);
+		try_set($tags['artist'], $info['tags']['id3v1']['artist']);
 
-		try_set($tags[album], $info[tags][id3v2][album]);
-		try_set($tags[album], $info[tags][id3v1][album]);
+		try_set($tags['album'], $info['tags']['id3v2']['album']);
+		try_set($tags['album'], $info['tags']['id3v1']['album']);
 
-		try_set($tags[year], $info[tags][id3v2][year]);
-		try_set($tags[year], $info[tags][id3v1][year]);
+		try_set($tags['year'], $info['tags']['id3v2']['year']);
+		try_set($tags['year'], $info['tags']['id3v1']['year']);
 
-		try_set($tags[num], $info[tags][id3v2][track_number]);
-		try_set($tags[num], $info[tags][id3v1][number]);
+		try_set($tags['num'], $info['tags']['id3v2']['track_number']);
+		try_set($tags['num'], $info['tags']['id3v1']['number']);
 
-		try_set($tags[track], $info[tags][id3v2][title]);
-		try_set($tags[track], $info[tags][id3v1][title]);
-		try_set($tags[track], filename_to_track($row['file']));
+		try_set($tags['track'], $info['tags']['id3v2']['title']);
+		try_set($tags['track'], $info['tags']['id3v1']['title']);
+		try_set($tags['track'], filename_to_track($row['file']));
 
 		$hash = array();
 		foreach ($tags as $k => $v){
@@ -45,7 +45,7 @@
 		}
 		if (count($hash)){
 
-			$hash[last_scanned] = time();
+			$hash['last_scanned'] = time();
 
 			db_update('tracks', $hash, "id=$row[id]");
 		}

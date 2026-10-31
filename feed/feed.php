@@ -6,7 +6,7 @@
 	# spider each of the paths in our config, looking for files
 	#
 
-	foreach ($cfg[file_roots] as $path){
+	foreach ($cfg['file_roots'] as $path){
 		spider_path($path);
 	}
 

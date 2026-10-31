@@ -12,9 +12,9 @@
 	# exchange the token for a session key (and store it)
 	#
 
-	$ret = lastfm_get_session($_GET[token]);
+	$ret = lastfm_get_session($_GET['token']);
 
-	if (!$ret[ok]){
+	if (!$ret['ok']){
 		echo "there was a problem!";
 		dumper($ret);
 		exit;

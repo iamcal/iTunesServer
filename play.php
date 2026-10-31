@@ -1,13 +1,13 @@
 <?php
 	include('include/init.php');
 
-	$row = db_fetch_one("SELECT * FROM tracks WHERE id=".intval($_GET[id]));
+	$row = db_fetch_one("SELECT * FROM tracks WHERE id=".intval($_GET['id']));
 
-	$info = pathinfo($row[file]);
+	$info = pathinfo($row['file']);
 
-	if (is_file($file = utf8_encode($row[file]))){
+	if (is_file($file = utf8_encode($row['file']))){
 
-		switch ($info[extension]){
+		switch ($info['extension']){
 
 			case 'mp3':
 			case 'm4a':
