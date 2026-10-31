@@ -1,4 +1,4 @@
-<?
+<?php
 	function exit_with_json($o){
 		$json = jsonify($o);
 		header("Content-Type: text/plain; charset=utf-8");

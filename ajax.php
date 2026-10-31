@@ -1,4 +1,4 @@
-<?
+<?php
 	include('include/init.php');
 
 	$_GLOBALS[authed_user] = auth_check_token($_REQUEST['_auth']);

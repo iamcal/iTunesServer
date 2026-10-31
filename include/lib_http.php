@@ -1,4 +1,4 @@
-<?
+<?php
 
 	function http_get($url){
 

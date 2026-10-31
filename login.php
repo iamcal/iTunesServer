@@ -1,4 +1,4 @@
-<?
+<?php
 	#
 	# $Id$
 	#
@@ -65,27 +65,27 @@
 
 
 	<div id="login">
-<? if ($cfg[allow_authed_users]){ ?>
+<?php if ($cfg[allow_authed_users]){ ?>
 
 		<form action="login.php" method="post">
-	<? if ($bad_login){ ?>
+	<?php if ($bad_login){ ?>
 			LOGIN ERROR<br />
-	<? } ?>
+	<?php } ?>
 			Username: <input type="text" name="username" /><br />
 			Password: <input type="password" name="password" /><br />
 			<input type="submit" value="Log In" />
 		</form>
 
-	<? if ($cfg[allow_anon_users]){ ?>
+	<?php if ($cfg[allow_anon_users]){ ?>
 		Or <a href="./">use anonymously</a>.
-	<? } ?>
-<? }else{ ?>
-	<? if ($cfg[allow_anon_users]){ ?>
+	<?php } ?>
+<?php }else{ ?>
+	<?php if ($cfg[allow_anon_users]){ ?>
 		You can only <a href="./">use this anonymously</a>.
-	<? }else{ ?>
+	<?php }else{ ?>
 		Autnenticated and anonymous access are both turned off. Oops!
-	<? } ?>
-<? } ?>
+	<?php } ?>
+<?php } ?>
 	</div>
 
 

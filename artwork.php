@@ -1,4 +1,4 @@
-<?
+<?php
 	include('lib.php');
 
 	$path = dirname(__FILE__);

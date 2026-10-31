@@ -1,4 +1,4 @@
-<?
+<?php
 	include('../include/init.php');
 	include('../getid3/getid3.php');
 

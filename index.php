@@ -1,4 +1,4 @@
-<?
+<?php
 	include('include/init.php');
 
 	if (!$cfg[allow_anon_users] && !$cfg[user][id]){
@@ -24,13 +24,13 @@
 	<script type="text/javascript" src="js/core.js?<?=time()?>"></script>
 
 <script type="text/javascript">
-<? if ($cfg[user][id]){ ?>
+<?php if ($cfg[user][id]){ ?>
 var g_user = '<?=$cfg[user][name]?>';
 var g_auth = '<?=auth_create_token($cfg[user][name])?>';
-<? }else{ ?>
+<?php }else{ ?>
 var g_user = null;
 var g_auth = '<?=auth_create_token('anon')?>';
-<? } ?>
+<?php } ?>
 </script>
 
 </head>
@@ -65,16 +65,16 @@ var g_auth = '<?=auth_create_token('anon')?>';
 <div id="midblock">
 	<div id="sidebar">
 
-<? if (0){ ?>
+<?php if (0){ ?>
 		<a href="#" onclick="updateArtwork(); return false;">ART<img src="artwork.png" id="artwork" /></a>
-<? } ?>
+<?php } ?>
 
 		<div id="login">
-<? if ($cfg[user][id]){ ?>
+<?php if ($cfg[user][id]){ ?>
 			Hello <?=HtmlSpecialChars($cfg[user][name])?> [<a href="logout.php">Logout</a>]<br />
-<? }else{ ?>
+<?php }else{ ?>
 			Guest [<a href="login.php">Log in</a>]<br />
-<? } ?>
+<?php } ?>
 		</div>
 
 		<div id="playlists">
@@ -103,9 +103,9 @@ var g_auth = '<?=auth_create_token('anon')?>';
 </div>
 <div id="btmbar">
 	<div id="buttons">
-<? if (0){ ?>
+<?php if (0){ ?>
 		<a href="#"><img src="images/sync.gif" width="40" height="20" /></a>
-<? } ?>
+<?php } ?>
 	</div>
 	<div id="status"></div>
 </div>

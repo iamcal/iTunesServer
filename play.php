@@ -1,4 +1,4 @@
-<?
+<?php
 	include('include/init.php');
 
 	$row = db_fetch_one("SELECT * FROM tracks WHERE id=".intval($_GET[id]));
