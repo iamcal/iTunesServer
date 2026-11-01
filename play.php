@@ -5,7 +5,7 @@
 
 	$info = pathinfo($row['file']);
 
-	if (is_file($file = utf8_encode($row['file']))){
+	if (is_file($file = mb_convert_encoding($row['file'], 'UTF-8', 'ISO-8859-1'))){
 
 		switch ($info['extension']){
 

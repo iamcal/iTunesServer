@@ -14,6 +14,7 @@ This is a work in progress, but basically:
 
 * Make sure your server is running Apache and mod_php
 * You'll need MySQL too
+* Run <code>composer install</code>, which fetches <a href="https://github.com/JamesHeinrich/getID3">getID3</a>
 * Load <code>schema.sql</code> into a database
 * Copy <code>include/config.php.example</code> to <code>include/config.php</code> and modify the settings in it
 * Point your browser at <code>feed/feed.php</code> (this will be automated later)

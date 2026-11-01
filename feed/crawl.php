@@ -1,11 +1,9 @@
 <?php
 	include('../include/init.php');
-	include('../getid3/getid3.php');
-
-	define('GETID3_HELPERAPPSDIR', realpath(GETID3_INCLUDEPATH.'apps').DIRECTORY_SEPARATOR);
+	include('../vendor/autoload.php');
 
 
-	$getID3 = new getID3;
+	$getID3 = new \JamesHeinrich\GetID3\GetID3;
 
 	$rows = db_fetch_all("SELECT * FROM tracks WHERE updated=0");
 
@@ -21,20 +19,20 @@
 			'track'		=> null,
 		);
 
-		try_set($tags['artist'], $info['tags']['id3v2']['artist']);
-		try_set($tags['artist'], $info['tags']['id3v1']['artist']);
+		try_set($tags['artist'], $info['tags']['id3v2']['artist'] ?? null);
+		try_set($tags['artist'], $info['tags']['id3v1']['artist'] ?? null);
 
-		try_set($tags['album'], $info['tags']['id3v2']['album']);
-		try_set($tags['album'], $info['tags']['id3v1']['album']);
+		try_set($tags['album'], $info['tags']['id3v2']['album'] ?? null);
+		try_set($tags['album'], $info['tags']['id3v1']['album'] ?? null);
 
-		try_set($tags['year'], $info['tags']['id3v2']['year']);
-		try_set($tags['year'], $info['tags']['id3v1']['year']);
+		try_set($tags['year'], $info['tags']['id3v2']['year'] ?? null);
+		try_set($tags['year'], $info['tags']['id3v1']['year'] ?? null);
 
-		try_set($tags['num'], $info['tags']['id3v2']['track_number']);
-		try_set($tags['num'], $info['tags']['id3v1']['number']);
+		try_set($tags['num'], $info['tags']['id3v2']['track_number'] ?? null);
+		try_set($tags['num'], $info['tags']['id3v1']['track_number'] ?? null);
 
-		try_set($tags['track'], $info['tags']['id3v2']['title']);
-		try_set($tags['track'], $info['tags']['id3v1']['title']);
+		try_set($tags['track'], $info['tags']['id3v2']['title'] ?? null);
+		try_set($tags['track'], $info['tags']['id3v1']['title'] ?? null);
 		try_set($tags['track'], filename_to_track($row['file']));
 
 		$hash = array();
@@ -69,7 +67,7 @@
 
 		if (is_array($a)){
 			foreach ($a as $x){
-				if (strlen($x)){
+				if (strlen($x ?? '')){
 					$target = $x;
 					return;
 				}
@@ -77,7 +75,7 @@
 			return;
 		}
 
-		if (strlen($a)){
+		if (strlen($a ?? '')){
 			$target = $a;
 		}
 	}

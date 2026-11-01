@@ -8,10 +8,17 @@
 	#################################################################
 
 	function db_connect() {
-		$GLOBALS['cfg']['db_conn'] = @mysql_connect($GLOBALS['cfg']['db_host'], $GLOBALS['cfg']['db_user'], $GLOBALS['cfg']['db_pass']);
+
+		# errors come back through db_error(), as they did with the mysql extension, not as exceptions
+		mysqli_report(MYSQLI_REPORT_OFF);
+
+		$GLOBALS['cfg']['db_conn'] = @mysqli_connect($GLOBALS['cfg']['db_host'] ?? null, $GLOBALS['cfg']['db_user'] ?? null, $GLOBALS['cfg']['db_pass'] ?? null);
 
 		if ($GLOBALS['cfg']['db_conn']) {
-			@mysql_select_db($GLOBALS['cfg']['db_name'], $GLOBALS['cfg']['db_conn']);	
+			@mysqli_select_db($GLOBALS['cfg']['db_conn'], $GLOBALS['cfg']['db_name'] ?? '');
+
+			# the mysql extension's default, which the stored file paths were written through
+			@mysqli_set_charset($GLOBALS['cfg']['db_conn'], 'latin1');
 			return 1;
 		}
 
@@ -22,7 +29,7 @@
 
 	function db_query($qstring) {
 
-		if ($GLOBALS['HTTP_GET_VARS']['debugsql']){
+		if ($_GET['debugsql'] ?? null){
 			echo "QUERY: ".HtmlSpecialChars($qstring)."<br />\n";
 		}
 
@@ -31,7 +38,7 @@
 			return;
 		}
 
-		$result = @mysql_query($qstring, $GLOBALS['cfg']['db_conn']);
+		$result = @mysqli_query($GLOBALS['cfg']['db_conn'], $qstring);
 
 		if (!$result){
 			echo "<p>".db_error()."</p>";
@@ -43,13 +50,13 @@
 	#################################################################
 
 	function db_insertid() {
-		return @mysql_insert_id($GLOBALS['cfg']['db_conn']);
+		return $GLOBALS['cfg']['db_conn'] ? mysqli_insert_id($GLOBALS['cfg']['db_conn']) : 0;
 	}
 
 	#################################################################
 
 	function db_error() {
-		return @mysql_error($GLOBALS['cfg']['db_conn']);
+		return $GLOBALS['cfg']['db_conn'] ? mysqli_error($GLOBALS['cfg']['db_conn']) : mysqli_connect_error();
 	}
 
 	#################################################################
@@ -86,8 +93,8 @@
 
 	function db_num_rows($qhandle){
 
-		if ($qhandle){
-			return @mysql_numrows($qhandle);
+		if ($qhandle instanceof mysqli_result){
+			return mysqli_num_rows($qhandle);
 		}else{
 			return 0;
 		}
@@ -96,11 +103,11 @@
 	#################################################################
 
 	function db_fetch_hash($qhandle){
-		return @mysql_fetch_array($qhandle, MYSQL_ASSOC);
+		return $qhandle instanceof mysqli_result ? mysqli_fetch_array($qhandle, MYSQLI_ASSOC) : false;
 	}
 
 	function db_fetch_list($qhandle){
-		return @mysql_fetch_array($qhandle, MYSQL_NUM);
+		return $qhandle instanceof mysqli_result ? mysqli_fetch_array($qhandle, MYSQLI_NUM) : false;
 	}
 
 	#################################################################
