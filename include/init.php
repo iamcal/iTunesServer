@@ -12,6 +12,7 @@
 
 	if (!@include(INCLUDE_DIR.'/config.php')){
 		echo "You need to rename <code>include/config.php.example</code> to <code>include/config.php</code> and modify the settings.";
+		exit;
 	}
 	include(INCLUDE_DIR.'/lib_db.php');
 	include(INCLUDE_DIR.'/lib_misc.php');
